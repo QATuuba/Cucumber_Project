@@ -21,6 +21,8 @@ public class Driver {
     access to the object of this class from outside the class
      */
 
+    static String browserType;
+
     private Driver(){}
 
     /*
@@ -39,12 +41,18 @@ public class Driver {
     public static WebDriver getDriver(){
 
         if (driverPool.get()==null){
+            if (System.getProperty("BROWSER") == null){
+                browserType = ConfigurationReader.getProperty("browser");
+            }else {
+                browserType = System.getProperty("BROWSER");
+            }
+            System.out.println("Browser: " + browserType);
 
             /*
             We read our browserType from configuration.properties.
             This way, we can control which browser is opened from outside our code, from configuration.properties.
              */
-            String browserType = ConfigurationReader.getProperty("browser");
+            //String browserType = ConfigurationReader.getProperty("browser");
 
              /*
                 Depending on the browserType that will be return from configuration.properties file
@@ -52,19 +60,6 @@ public class Driver {
             */
 
             switch (browserType){
-
-                case "chrome":
-                    WebDriverManager.chromedriver().setup();
-                    driverPool.set(new ChromeDriver());
-                    driverPool.get().manage().window().maximize();
-                    driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-                    break;
-                case "firefox":
-                    WebDriverManager.firefoxdriver().setup();
-                    driverPool.set(new FirefoxDriver());
-                    driverPool.get().manage().window().maximize();
-                    driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-                    break;
 
                 case "remote-chrome":
                     // assign your grid server address
@@ -80,6 +75,21 @@ public class Driver {
                         e.printStackTrace();
                     }
                     break;
+
+                case "chrome":
+                    WebDriverManager.chromedriver().setup();
+                    driverPool.set(new ChromeDriver());
+                    driverPool.get().manage().window().maximize();
+                    driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+                    break;
+                case "firefox":
+                    WebDriverManager.firefoxdriver().setup();
+                    driverPool.set(new FirefoxDriver());
+                    driverPool.get().manage().window().maximize();
+                    driverPool.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+                    break;
+
+
 
                 case "saucelab-chrome":
                     try{
