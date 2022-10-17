@@ -19,7 +19,7 @@ Feature: User should be able to login using correct credentials
     #2- create login method in WebTableLoginPage
     #3- this login method should have multiple different overloaded version
 
-  Scenario: User should be able to see all 12 months in months dropdown
+  Scenario: Positive login scenario
     When user enters below credentials
       | username     | Test   |
       | password     | Tester |

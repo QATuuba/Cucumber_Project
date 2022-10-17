@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class GoogleSearchPage {
 
-    //create constarctor
+    //create constractor
     //initialize the driver instance and this class' instance using PageFactory.initElements
 
     public GoogleSearchPage(){
@@ -17,5 +17,8 @@ public class GoogleSearchPage {
     //We can start locating web elements using @FindBy annotation
     @FindBy(name= "q")
     public WebElement searchBox;
+
+    @FindBy(id = "L2AGLb")
+    public WebElement acceptCookies;
 
 }
